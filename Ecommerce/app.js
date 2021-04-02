@@ -5,9 +5,12 @@ const app = new express();
 const path = require('path');
 const bodyParser = require('body-parser');
 const fs = require('fs')
+const sharp = require('sharp')
+const ejs = require('ejs')
 const multer = require('multer')
 const upload = multer({dest: 'uploads/'})
 const MongoClient = require('mongodb').MongoClient;
+const mongo = require('mongodb')
 const myurl = 'mongodb+srv://JamesMorris:Password123@practicecluster.yr6ww.mongodb.net/users?retryWrites=true&w=majority'
 let db = null 
 
@@ -34,21 +37,33 @@ app.use(bodyParser({limit: '100mb'}))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(express.json())
+app.set('veiw engine', 'ejs')
 
 const getAllItems = async () => {
     return await db.collection('Items').find().toArray()
+}
+
+const getOneItem = async (inID) => {
+    let o_id = new mongo.ObjectID(inID)
+    return await db.collection('Items').find({'_id':o_id}).toArray()
 }
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, './Public/HTML/index.html'));
 })
 
-app.get('/items', (req,res) => {
-    res.sendFile(path.join(__dirname, './Public/HTML/listOfItems.html'));
+app.get('/items', async (req,res) => {
+    let items =  await getAllItems()
+    res.render(path.join(__dirname, './Public/HTML/listofEJSitem.ejs'),{initems:items});
 })
 
 app.get('/itemdesc', (req,res) => {
     res.sendFile(path.join(__dirname, './Public/HTML/itemdesc.html'));
+})
+
+app.post('/storeitem', (req,res) => {
+    console.log(req.body.id)
+    res.end()
 })
 
 app.get('/itemlist', async (req,res) => {
@@ -57,9 +72,18 @@ app.get('/itemlist', async (req,res) => {
     res.end()
 })
 
+app.get('/items/:id', async (req,res) => {
+    let foundItem = await getOneItem(req.params.id)
+    res.render(path.join(__dirname, './Public/HTML/itemdescEJS.ejs'),{initems:foundItem});
+})
+
 app.post('/', upload.single('MyImage'), async (req, res) => {
     if(fs.readFileSync(req.file.path) != undefined) {
         let img = fs.readFileSync(req.file.path);
+        img = await sharp(img).resize(200,100, {
+            fit: sharp.fit.inside,
+            withoutEnlargement: true
+        }).png().toBuffer()
         let name = req.body.name;
         let desc = req.body.decs;
         let price = req.body.price;
@@ -74,9 +98,10 @@ app.post('/', upload.single('MyImage'), async (req, res) => {
             price:price,
             img: encode_image
         }
+
         db.collection('Items').insertOne(fullitem, (err, result) => {
     
-            if(err) return console.log(err)
+            if(err) return res.json(err)
     
             console.log('saved to database')
             res.redirect('/items')

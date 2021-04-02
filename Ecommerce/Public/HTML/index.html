@@ -15,16 +15,14 @@
     <div class="itemForm">
         <h1 class="header"> Pleast enter the details for the item you want to add along with an image</h1>
         <form action="/" enctype="multipart/form-data" method="POST" class="itemInput">
-            <input type="text" name="name" placeholder="Name" class="formItem">
-            <input type="text" name='decs' placeholder="Description" class="formItem">
-            <input type="text" name="price" placeholder="Price" class="formItem">
+            <input type="text" id='name' name="name" placeholder="Name" class="formItem">
+            <input type="text" id='desc' name='decs' placeholder="Description" class="formItem">
+            <input type="text" id='price' name="price" placeholder="Price" class="formItem">
             <input type="file" id="Image" name="MyImage" accept="image/*" class="formItem">
             <button type="submit" value="Upload Photo">Submit</button>
         </form>
     </div>
-    <script>
-        const goToList = () => {
-            window.location.href = '/items'
-        }
+    <script src="../Javascript/itemUpload.js">
+        
     </script>
 </body>
