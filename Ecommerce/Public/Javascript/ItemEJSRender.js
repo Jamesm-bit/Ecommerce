@@ -50,5 +50,4 @@ $('#prev').click(function () {
     }
 })
 pageToggle = true
-togglePage()
-togglePage()
+$(window).on("load", togglePage())

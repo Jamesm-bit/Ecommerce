@@ -23,7 +23,7 @@
     </div>
     <div class="items">
         <%for(item in initems) {%>
-            <div class="<%=initems[item]._id%>" id="items" onclick="passElement(this)">
+            <div class="<%=initems[item]._id%> <%=item%>" id="items" onclick="passElement(this)">
                 <p class="name">
                     Name:<%= initems[item].name %>
                 </p>
