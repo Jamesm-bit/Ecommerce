@@ -49,26 +49,6 @@ const pickItem = (id) => {
     $('.descriptiondesc').text($(id).children('.desc').text())
     $('.pricedesc').text($(id).children('.price').text())
     $('#imgdesc').attr('src',$(id).children('.image').attr('src'))
-    //id = {'id':id}
-    //id = JSON.stringify(id)
-    //console.log(id)
-    /*
-    fetch('/storeitem', {
-        method: 'POST',
-        body: id,
-        headers: {
-            'Authorization': 'test',
-            'Accept': 'application/json'
-        }
-    })
-    */
-    //id = '.' + id
-    //console.log($(id).children('.name').text())
-    //localStorage.setItem('name', $(id).children('.name').text())
-    //localStorage.setItem('desc', $(id).children('.desc').text())
-    //localStorage.setItem('price', $(id).children('.price').text())
-    //localStorage.setItem('img', $(id).children('.image').attr('src'))
-    //window.location.href = '../itemdesc'   
 }
 
 const moveToList = () => {

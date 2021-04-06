@@ -12,27 +12,33 @@
 
 <body>
     <button onclick="goHome()">go Back</button>
-    <div class="items">
+    <div>
         <%for(item in initems) {%>
-            <div class="<%=initems[item]._id%>" id="items">
-                <p class="name">
-                    Name:<%= initems[item].name %>
-                </p>
-                <p class="description">
-                    Description: <%=initems[item].desc%>
-                </p>
-                <p class="price">
-                    Price: <%=initems[item].price%>
-                </p>
-                <img class="image" src="data:image/jpeg;base64,<%=initems[item].img%>">
+            <div class="<%=initems[item]._id%>" id="itemDescription">
+                <div id="itemDescHolder">
+                    <p class="name">
+                        Name:<%= initems[item].name %>
+                    </p>
+                    <p class="description">
+                        Description: <%=initems[item].desc%>
+                    </p>
+                    <p class="price">
+                        Price: <%=initems[item].price%>
+                    </p>
+                    <img class="image" src="data:image/jpeg;base64,<%=initems[item].img%>">
+                </div>
+                <div id="editorHolder">
+                    <input type="text" id="name<%=initems[item]._id%>" placeholder="Name">
+                    <input type="text" id="desc<%=initems[item]._id%>" placeholder="Description">
+                    <input type="text" id="price<%=initems[item]._id%>" placeholder="Price">
+                    <input type="file" id="image<%=initems[item]._id%>" name="MyImage" accept="image/*">
+                    <button type="button" id="<%=initems[item]._id%>" onclick="editItem(this.id)">Edit</button>
+                    <button type="button" id="<%=initems[item]._id%>" onclick="delItem(this.id)">Delete</button>
+                </div>
             </div>
             <%}%>
     </div>
 
 
-    <script>
-        function goHome() {
-            window.location.href = '/items'
-        }
-    </script>
+    <script src="../Javascript/itemdesc.js"></script>
 </body>

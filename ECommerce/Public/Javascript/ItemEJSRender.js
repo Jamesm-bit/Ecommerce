@@ -24,12 +24,6 @@ const togglePage = (page) => {
 const passElement = (thisElement) => {
     console.log($(thisElement).attr("class"))
     window.location.href = `../items/${$(thisElement).attr("class")}`
-    /*fetch(`/items/${$(thisElement).attr("class")}`, {
-        method: 'GET',
-        headers: {
-            'Authorization': 'test',
-        }
-    })*/
 }
 
 $('#next').click(function () {

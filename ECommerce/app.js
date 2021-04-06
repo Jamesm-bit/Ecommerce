@@ -61,11 +61,6 @@ app.get('/itemdesc', (req,res) => {
     res.sendFile(path.join(__dirname, './Public/HTML/itemdesc.html'));
 })
 
-app.post('/storeitem', (req,res) => {
-    console.log(req.body.id)
-    res.end()
-})
-
 app.get('/itemlist', async (req,res) => {
     let items =  await getAllItems()
     res.json(items)
@@ -73,8 +68,38 @@ app.get('/itemlist', async (req,res) => {
 })
 
 app.get('/items/:id', async (req,res) => {
-    let foundItem = await getOneItem(req.params.id)
+    
+    let idnum = req.params.id.split(' ')
+    console.log(idnum[0])
+    let foundItem = await getOneItem(idnum[0])
     res.render(path.join(__dirname, './Public/HTML/itemdescEJS.ejs'),{initems:foundItem});
+})
+
+app.post('/delete', async (req,res) => {
+    console.log(req.body.id)
+    let d_id = new mongo.ObjectID(req.body.id)
+    let DelID = {'_id':d_id}
+    db.collection('Items').deleteOne(DelID, (err,resolve) => {
+        console.log('deleted')
+    })
+    res.redirect('/items')
+})
+
+app.post('/update', async (req,res) => {
+    //console.log(req.file.path)
+    let u_id = new mongo.ObjectID(req.body.id)
+    console.log('test'+u_id)
+    let updateID = {'_id':u_id}
+    let updateValues = {'name':req.body.name,'desc':req.body.desc,'price':req.body.price}
+    let newValues = {
+        $set: updateValues
+    }
+        db.collection('Items').updateOne(updateID,newValues,(err,resolve) => {
+            console.log('updated')
+            return
+        })
+    
+    res.json('updated')
 })
 
 app.post('/', upload.single('MyImage'), async (req, res) => {
