@@ -28,12 +28,15 @@
                     <img class="image" src="data:image/jpeg;base64,<%=initems[item].img%>">
                 </div>
                 <div id="editorHolder">
-                    <input type="text" id="name<%=initems[item]._id%>" placeholder="Name">
-                    <input type="text" id="desc<%=initems[item]._id%>" placeholder="Description">
-                    <input type="text" id="price<%=initems[item]._id%>" placeholder="Price">
-                    <input type="file" id="image<%=initems[item]._id%>" name="MyImage" accept="image/*">
-                    <button type="button" id="<%=initems[item]._id%>" onclick="editItem(this.id)">Edit</button>
-                    <button type="button" id="<%=initems[item]._id%>" onclick="delItem(this.id)">Delete</button>
+                    <form action="/update" enctype="multipart/form-data" method="POST" class="itemInput">
+                        <input type="text" class="updateID" name="id" id="id" value="<%=initems[item]._id%>">
+                        <input type="text" name="name"  id="name" placeholder="Name">
+                        <input type="text" name="desc" id="desc" placeholder="Description">
+                        <input type="text" name="price" id="price" placeholder="Price">
+                        <input type="file" name="MyImage" id="image" name="MyImage" accept="image/*">
+                        <button type="submit" id="<%=initems[item]._id%>">Edit</button>
+                        <button type="button" id="<%=initems[item]._id%>" onclick="delItem(this.id)">Delete</button>
+                    </form>
                 </div>
             </div>
             <%}%>

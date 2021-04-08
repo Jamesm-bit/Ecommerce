@@ -8,15 +8,15 @@ const fs = require('fs')
 const sharp = require('sharp')
 const ejs = require('ejs')
 const multer = require('multer')
-const upload = multer({dest: 'uploads/'})
+const upload = multer({ dest: 'uploads/' })
 const MongoClient = require('mongodb').MongoClient;
 const mongo = require('mongodb')
 const myurl = 'mongodb+srv://JamesMorris:Password123@practicecluster.yr6ww.mongodb.net/users?retryWrites=true&w=majority'
-let db = null 
+let db = null
 
 const PORT = process.env.PORT || 5000
 
-MongoClient.connect(myurl, { useUnifiedTopology: true }, (err,client) => {
+MongoClient.connect(myurl, { useUnifiedTopology: true }, (err, client) => {
     if (err) return console.log(err)
     db = client.db('test')
     console.log('connected to mongo DB')
@@ -33,7 +33,7 @@ const ItemSchema = new mongoose.Schema({
     image: { data: Buffer, contentType: String }
 });
 
-app.use(bodyParser({limit: '100mb'}))
+app.use(bodyParser({ limit: '100mb' }))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(express.json())
@@ -45,67 +45,71 @@ const getAllItems = async () => {
 
 const getOneItem = async (inID) => {
     let o_id = new mongo.ObjectID(inID)
-    return await db.collection('Items').find({'_id':o_id}).toArray()
+    return await db.collection('Items').find({ '_id': o_id }).toArray()
 }
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, './Public/HTML/index.html'));
 })
 
-app.get('/items', async (req,res) => {
-    let items =  await getAllItems()
-    res.render(path.join(__dirname, './Public/HTML/listofEJSitem.ejs'),{initems:items});
+app.get('/items', async (req, res) => {
+    let items = await getAllItems()
+    res.render(path.join(__dirname, './Public/HTML/listofEJSitem.ejs'), { initems: items });
 })
 
-app.get('/itemdesc', (req,res) => {
+app.get('/itemdesc', (req, res) => {
     res.sendFile(path.join(__dirname, './Public/HTML/itemdesc.html'));
 })
 
-app.get('/itemlist', async (req,res) => {
-    let items =  await getAllItems()
+app.get('/itemlist', async (req, res) => {
+    let items = await getAllItems()
     res.json(items)
     res.end()
 })
 
-app.get('/items/:id', async (req,res) => {
-    
+app.get('/items/:id', async (req, res) => {
     let idnum = req.params.id.split(' ')
-    console.log(idnum[0])
     let foundItem = await getOneItem(idnum[0])
-    res.render(path.join(__dirname, './Public/HTML/itemdescEJS.ejs'),{initems:foundItem});
+    res.render(path.join(__dirname, './Public/HTML/itemdescEJS.ejs'), { initems: foundItem });
 })
 
-app.post('/delete', async (req,res) => {
+app.post('/delete', async (req, res) => {
     console.log(req.body.id)
     let d_id = new mongo.ObjectID(req.body.id)
-    let DelID = {'_id':d_id}
-    db.collection('Items').deleteOne(DelID, (err,resolve) => {
+    let DelID = { '_id': d_id }
+    db.collection('Items').deleteOne(DelID, (err, resolve) => {
         console.log('deleted')
     })
     res.redirect('/items')
 })
 
-app.post('/update', async (req,res) => {
-    //console.log(req.file.path)
-    let u_id = new mongo.ObjectID(req.body.id)
-    console.log('test'+u_id)
-    let updateID = {'_id':u_id}
-    let updateValues = {'name':req.body.name,'desc':req.body.desc,'price':req.body.price}
-    let newValues = {
-        $set: updateValues
-    }
-        db.collection('Items').updateOne(updateID,newValues,(err,resolve) => {
+app.post('/update', upload.single('MyImage'), async (req, res) => {
+    console.log(req.body)
+    if (fs.readFileSync(req.file.path) != undefined) {
+        let img = fs.readFileSync(req.file.path);
+        img = await sharp(img).resize(200, 100, {
+            fit: sharp.fit.inside,
+            withoutEnlargement: true
+        }).png().toBuffer()
+        let encode_image = img.toString('base64');
+        let u_id = new mongo.ObjectID(req.body.id)
+        let updateID = { '_id': u_id }
+        let updateValues = { 'name': req.body.name, 'desc': req.body.desc, 'price': req.body.price, 'img': encode_image }
+        let newValues = {
+            $set: updateValues
+        }
+        db.collection('Items').updateOne(updateID, newValues, (err, resolve) => {
             console.log('updated')
-            return
         })
-    
-    res.json('updated')
+        res.redirect('/items')      
+    }
+
 })
 
 app.post('/', upload.single('MyImage'), async (req, res) => {
-    if(fs.readFileSync(req.file.path) != undefined) {
+    if (fs.readFileSync(req.file.path) != undefined) {
         let img = fs.readFileSync(req.file.path);
-        img = await sharp(img).resize(200,100, {
+        img = await sharp(img).resize(200, 100, {
             fit: sharp.fit.inside,
             withoutEnlargement: true
         }).png().toBuffer()
@@ -118,16 +122,16 @@ app.post('/', upload.single('MyImage'), async (req, res) => {
             image: new Buffer.from(encode_image,'base64')
         };*/
         let fullitem = {
-            name:name,
-            desc:desc,
-            price:price,
+            name: name,
+            desc: desc,
+            price: price,
             img: encode_image
         }
 
         db.collection('Items').insertOne(fullitem, (err, result) => {
-    
-            if(err) return res.json(err)
-    
+
+            if (err) return res.json(err)
+
             console.log('saved to database')
             res.redirect('/items')
         })
