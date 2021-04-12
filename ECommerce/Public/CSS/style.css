@@ -1,12 +1,12 @@
 body{
-    background-color: grey;
+    background-color:white;
 }
 .itemForm {
     color: white;
     display: flex;
     flex-direction: column;
     padding-top: 20px;
-    height: 400px;
+    height: fit-content;
     width: 280px;
     border: solid;
     border-width: 2px;
@@ -20,21 +20,26 @@ body{
     margin-bottom: -130px;
     align-items: center;
     text-align: center;
+    font-size: small;
 }
 .header {
     padding: 10px;
     padding-bottom: 5px;
     padding-top: 5px;
+    font-size: 30px;
 }
 .formItem {
     margin: 2.5px;
     padding: 2px;
 }
+.itemInput {
+    margin-bottom: 20px;
+}
 #items {
     border: solid;
     border-width: 2px;
     border-color: white;
-    background-color: green;
+    background-color: #ffcc66;
     border-radius: 15px;
     padding: 5px;
     padding-left: 15px;
@@ -43,25 +48,60 @@ body{
     overflow: auto;
     width: 450px;
     height: 100px;
+}
+.listobj{
+    margin: 0px;
+}
+.price {
+    font-family:fantasy;
+    color:maroon;
+}
+.itemfeilds{
+    margin-right: 5px;
+}
+.headbar{
+    background-color: #0099ff;
+}
+.navbar{
+    justify-content: left;
+    margin-bottom: 10px;
+}
+.listitemsholder{
+    height: 70px;
+    margin-top: 8px;
 }
 #itemDescription {
     border: solid;
     border-width: 2px;
     border-color: white;
-    background-color: green;
+    background-color: #ffcc66;
     border-radius: 15px;
     padding: 5px;
     padding-left: 15px;
     justify-content: space-between;
     overflow: auto;
-    width: 550px;
-    height: 150px;
+    width: fit-content;
+    height: fit-content;
 }
 #itemDescHolder {
     display: flex;
-    width: 450px;
-    height: 100px;
+    width: auto;
+    height: auto;
     justify-content: space-between;
+    font-size: large;
+}
+.descitems{
+    width: auto;
+    height: auto;
+}
+.editholder{
+    font-size: small;
+    display: flex;
+}
+.editfeild{
+    max-height: 25px;
+    margin-top: 8px;
+    display: none;
 }
 #itemholder {
     border: solid;
@@ -104,3 +144,98 @@ img {
 .updateID {
     display: none;
 }
+button{
+    font-size: 17px;
+    background-color: transparent;
+    margin: 2px;
+    color: white;
+    border: 3px;
+    border-color: white;
+    border-radius: 8px;
+    border-style: solid;
+}
+a {
+    color: white;
+    border: 3px;
+    border-color: white;
+    border-radius: 8px;
+    border-style: solid;
+    text-decoration: none;
+    font-size: large;
+    margin-bottom: 10px;
+}
+#inputBoxes{
+    padding-top: 10px;
+    width: 200px;
+    padding-left: 20px;
+}
+.signinboxes{
+    display: flex;
+    flex-direction: column;
+}
+.columnBoxes {
+    display: flex;
+    flex-direction: column;
+    width: 250px;
+    padding: 10px;
+    padding-top: 100px;
+}
+#externalHolder {
+    color: white;
+    display: flex;
+    flex-direction: column;
+    padding-top: 20px;
+    height: 330px;
+    width: 630px;
+    border: solid;
+    border-width: 2px;
+    border-color: white;
+    background-color: #0099ff;
+    border-radius: 30px;
+    position: absolute;
+    left: 50%;
+    top: 35%;
+    margin-left: -315px;
+    margin-bottom: -130px;
+    align-items: center;
+}
+#mainholder{
+    display: flex;
+}
+#externalHolderDashboard {
+    color: white;
+    display: flex;
+    flex-direction: column;
+    padding-top: 20px;
+    height: 150px;
+    width: 630px;
+    border: solid;
+    border-width: 2px;
+    border-color: white;
+    background-color: #0099ff;
+    border-radius: 30px;
+    position: absolute;
+    left: 50%;
+    top: 35%;
+    margin-left: -315px;
+    margin-bottom: -130px;
+    align-items: center;
+}
+
+@media (min-width: 576px) {}
+/*
+Extra small (xs) devices (portrait phones, less than 576px)
+No media query since this is the default in Bootstrap
+
+Small (sm) devices (landscape phones, 576px and up)
+
+
+Medium (md) devices (tablets, 768px and up)
+@media (min-width: 768px) { ... }
+
+Large (lg) devices (desktops, 992px and up)
+@media (min-width: 992px) { ... }
+
+Extra (xl) large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) { ... }
+*/

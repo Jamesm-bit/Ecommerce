@@ -1,3 +1,5 @@
+let displayeditfeilds = false;
+
 const goHome = () => {
     window.location.href = '/items'
 }
@@ -22,6 +24,14 @@ const delItem = (inItem) => {
 
 $(function () {
     $('form').submit(function () {
+        if (!displayeditfeilds) {
+            $(`#name`).toggle()
+            $(`#desc`).toggle()
+            $(`#price`).toggle()
+            $(`#image`).toggle()
+            displayeditfeilds =true
+            return false
+        }
         const imageext = ['png', 'jpg', 'jpeg', 'gif', 'bmp']
         const priceRegEx = /^\d+(,\d{3})*(\.\d{1,2})?$/gm
         if ($(`#name`).val().length === 0) {

@@ -11,18 +11,31 @@
 </head>
 
 <body>
-    <button onclick="goToList()">Go to Items</button>
-    <div class="itemForm">
-        <h1 class="header"> Pleast enter the details for the item you want to add along with an image</h1>
-        <form action="/" enctype="multipart/form-data" method="POST" class="itemInput">
-            <input type="text" id='name' name="name" placeholder="Name" class="formItem">
-            <input type="text" id='desc' name='decs' placeholder="Description" class="formItem">
-            <input type="text" id='price' name="price" placeholder="Price" class="formItem">
-            <input type="file" id="Image" name="MyImage" accept="image/*" class="formItem">
-            <button type="submit" value="Upload Photo">Submit</button>
-        </form>
-    </div>
-    <script src="../Javascript/itemUpload.js">
-        
+    <form>
+        <div id="externalHolder">
+            <div id="mainholder">
+                <div id="textInput" class="columnBoxes">
+                    <div id="inputBoxes">
+                        <input type="text" id="UserName" placeholder="Username or Email"></input>
+                        <input type="password" id="Password" placeholder="Password"></input>
+                    </div>
+                </div>
+                <div id="externalSignIn" class="columnBoxes">
+                    <a href="/google">Sign in with Google</a>
+                    <a href="/facebook">Sign in with Facebook</a>
+                    <a href="/github">Sign in with Github</a>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="Signin Button" onclick="signInUser()">Sign in</button>
+                <button type="button" id="Signup Button" onclick="moveToSignUp()">Sign up</button>
+            </div>
+        </div>
+    </form>
+    <script src="/Javascript/userController.js"></script>
+    <script>
+
     </script>
 </body>
+
+</html>

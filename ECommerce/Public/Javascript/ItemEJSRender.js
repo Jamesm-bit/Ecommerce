@@ -5,7 +5,11 @@ let pageToggle = false
 let countOfItems = 0
 
 const moveToAdd = () => {
-    window.location.href = '../'
+    window.location.href = './additems'
+}
+
+const goHome = () => {
+    window.location.href = './'
 }
 
 const togglePage = (page) => {

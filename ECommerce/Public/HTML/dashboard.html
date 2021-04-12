@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Furth Pattern</title>
+    <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <link href="/CSS/style.css" rel="stylesheet">
+</head>
+
+<body>
+    <div id="externalHolderDashboard">
+        <p id='User'></p>
+        <button id="logout" onclick="goHome()">Logout</button>
+    </div>
+
+    <script>
+        async function getToken() {
+            return localStorage.getItem('token')
+        }
+
+        function goHome() {
+            window.location.href = "http://localhost:5000/"
+        }
+
+        async function checkfortoken() {
+            getToken()
+                .then(response => {
+                    if (response.length != 0) {
+                        $('#User').text("Welcome " + localStorage.getItem('UserName'))
+                        localStorage.setItem('token', '')
+                    } else {
+                        alert('you have been logged out')
+                        window.location.href = "http://localhost:5000/"
+                    }
+                })
+        }
+        checkfortoken()
+    </script>
+</body>
+
+</html>
