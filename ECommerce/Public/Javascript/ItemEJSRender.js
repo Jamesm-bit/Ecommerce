@@ -12,6 +12,10 @@ const goHome = () => {
     window.location.href = './'
 }
 
+const checkout = () => {
+    window.location.href = '/checkout'
+}
+
 const togglePage = (page) => {
     console.log($('.items').children().length)
     for (let j = 0; j < page * 10; j++) {

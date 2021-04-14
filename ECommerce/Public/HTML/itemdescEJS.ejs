@@ -17,6 +17,7 @@
 <body>
     <div class="container-fluid navbar sticky-top headbar">
         <button onclick="goHome()">Go Back</button>
+        <button onclick="checkout()">Checkout</button>
     </div>
     <div class="container-fluid descitems">
         <%for(item in initems) {%>
@@ -46,6 +47,7 @@
                             <button type="submit" id="<%=initems[item]._id%>">Edit</button>
                         </div>
                         <button type="button" id="<%=initems[item]._id%>" onclick="delItem(this.id)">Delete</button>
+                        <button type="button" id="<%=initems[item]._id%>" onclick="addToCart()">Add To Cart</button>
                     </form>
                 </div>
             </div>

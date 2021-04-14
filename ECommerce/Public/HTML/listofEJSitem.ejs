@@ -8,9 +8,9 @@
     <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <link href="/CSS/style.css" rel="stylesheet">
 </head>
 
@@ -21,18 +21,26 @@
         <button id="next" class="npbuttons">Next</button>
         <button id="gotolist" onclick="moveToList()">Go to list</button>
         <button id="goHome" onclick="goHome()">Log Out</button>
+        <button onclick="checkout()">Checkout</button>
     </div>
-    <div class="items container-fluid">
-        <%for(item in initems) {%>
-            <div class="<%=initems[item]._id%> <%=item%> container-fluid .col-xs-3" id="items" onclick="passElement(this)">
-                <div class="listitemsholder">
-                    <p class="name listobj">Name:<%= initems[item].name %></p>
-                    <p class="description listobj">Description: <%=initems[item].desc%></p>
-                    <p class="price listobj">Price: $<%=initems[item].price%></p>
+    <div class="container-fluid">
+        <div class="row">
+            <%for(item in initems) {%>
+                <div class="<%=initems[item]._id%> <%=item%> col-12 col-sm-12 col-md-6 col-lg-4" id="items"
+                    onclick="passElement(this)">
+                    <div class="listitemsholder">
+                        <p class="name listobj">Name:<%= initems[item].name %>
+                        </p>
+                        <p class="description listobj">Description: <%=initems[item].desc%>
+                        </p>
+                        <p class="price listobj">Price: $<%=initems[item].price%>
+                        </p>
+                    </div>
+                    <img class="image" src="data:image/jpeg;base64,<%=initems[item].img%>">
                 </div>
-                <img class="image" src="data:image/jpeg;base64,<%=initems[item].img%>">
-            </div>
-            <%}%>
+                <%}%>
+        </div>
+
     </div>
     <script src="../Javascript/ItemEJSRender.js"></script>
 </body>

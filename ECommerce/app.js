@@ -177,6 +177,10 @@ app.get('/additems', (req, res) => {
     res.sendFile(path.join(__dirname, './Public/HTML/additem.html'));
 })
 
+app.get('/checkout', (req, res) => {
+    res.sendFile(path.join(__dirname, './Public/HTML/cartCheckout.html'));
+})
+
 app.get('/items', async (req, res) => {
     let items = await getAllItems()
     res.render(path.join(__dirname, './Public/HTML/listofEJSitem.ejs'), { initems: items });
@@ -239,8 +243,11 @@ app.post('/additem', upload.single('MyImage'), async (req, res) => {
             withoutEnlargement: true
         }).png().toBuffer()
         let name = req.body.name;
+        name = name.trim()
         let desc = req.body.decs;
+        desc = desc.trim()
         let price = req.body.price;
+        price = price.trim()
         let encode_image = img.toString('base64');
         let fullitem = {
             name: name,

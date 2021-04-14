@@ -1,7 +1,12 @@
 let displayeditfeilds = false;
 
+
 const goHome = () => {
     window.location.href = '/items'
+}
+
+const checkout = () => {
+    window.location.href = '/checkout'
 }
 
 const delItem = (inItem) => {
@@ -22,6 +27,30 @@ const delItem = (inItem) => {
     }
 }
 
+const addToCart = () => {
+    let cart = JSON.parse(window.localStorage.getItem('Cart'))
+    let name = $('.name').html().trim().split(':')
+    name = name[1].trim()
+    let desc = $('.description').html().trim().split(':')
+    desc = desc[1].trim()
+    let price = $('.price').html().trim().split(':')
+    price = price[1].trim()
+    let img = $('.image').attr('src')
+    let item = { name, desc, price, img }
+    let itemarray = []
+    if (cart === null) {
+        itemarray.push(item)
+        window.localStorage.setItem('Cart', JSON.stringify(itemarray))
+        return
+    }
+    for (place in cart) {
+        itemarray.push(cart[place])
+    }
+    console.log(item)
+    itemarray.push(item)
+    window.localStorage.setItem('Cart', JSON.stringify(itemarray))
+}
+
 $(function () {
     $('form').submit(function () {
         if (!displayeditfeilds) {
@@ -29,7 +58,7 @@ $(function () {
             $(`#desc`).toggle()
             $(`#price`).toggle()
             $(`#image`).toggle()
-            displayeditfeilds =true
+            displayeditfeilds = true
             return false
         }
         const imageext = ['png', 'jpg', 'jpeg', 'gif', 'bmp']

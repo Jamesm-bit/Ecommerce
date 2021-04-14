@@ -16,8 +16,9 @@ $(function () {
             alert('Please input a description')
             return false
         }
-
-        if(!(priceRegEx.test($('#price').val()))) {
+        let priceVal = $('#price').val()
+        priceVal = priceVal.trim()
+        if(!(priceRegEx.test(priceVal))) {
             alert('Please submit a correct price')
             return false
         }
