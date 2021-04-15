@@ -1,5 +1,7 @@
 let displayeditfeilds = false;
 
+let cart = JSON.parse(window.localStorage.getItem('Cart'))
+$('#cartcount').text("Cart: " + cart.length)
 
 const goHome = () => {
     window.location.href = '/items'
@@ -28,7 +30,7 @@ const delItem = (inItem) => {
 }
 
 const addToCart = () => {
-    let cart = JSON.parse(window.localStorage.getItem('Cart'))
+    cart = JSON.parse(window.localStorage.getItem('Cart'))
     let name = $('.name').html().trim().split(':')
     name = name[1].trim()
     let desc = $('.description').html().trim().split(':')
@@ -49,6 +51,8 @@ const addToCart = () => {
     console.log(item)
     itemarray.push(item)
     window.localStorage.setItem('Cart', JSON.stringify(itemarray))
+    cart = JSON.parse(window.localStorage.getItem('Cart'))
+    $('#cartcount').text("Cart: " + cart.length)
 }
 
 $(function () {

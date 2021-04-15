@@ -4,6 +4,10 @@ let pagesize = 10
 let pageToggle = false
 let countOfItems = 0
 
+
+let cart = JSON.parse(window.localStorage.getItem('Cart'))
+$('#cartcount').text("Cart: "+cart.length)
+
 const moveToAdd = () => {
     window.location.href = './additems'
 }

@@ -1,3 +1,6 @@
+let cart = JSON.parse(window.localStorage.getItem('Cart'))
+$('#cartcount').text("Cart: "+cart.length)
+
 const goHome = () => {
     window.location.href = '/items'
 }
@@ -9,7 +12,7 @@ const Checkout = () => {
 }
 
 const renderCart = () => {
-    let cart = JSON.parse(window.localStorage.getItem('Cart'))
+    cart = JSON.parse(window.localStorage.getItem('Cart'))
     for(item in cart) {
         let cartdiv = document.createElement("div")
         cartdiv.id = 'items'
