@@ -2,6 +2,7 @@ const goToList = () => {
     window.location.href = '/items'
 }
 
+//testing the pull request again
 $(function () {
     $('form').submit(function () {
         const imageext = ['png','jpg','jpeg','gif','bmp']
